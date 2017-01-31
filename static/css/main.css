@@ -1,0 +1,10 @@
+body{
+	font-family: "Arial";
+	background: #eee;
+	color: #111;
+}
+
+header h1{
+	font-size: 6em;
+	margin: 0 auto;
+}
