@@ -8,3 +8,10 @@ header h1{
 	font-size: 6em;
 	margin: 0 auto;
 }
+
+.page-wrapper{
+	text-align: center;
+	margin: 0 auto;
+	background: #e2f322;
+	max-width: 900px;
+}
