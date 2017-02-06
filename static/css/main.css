@@ -8,6 +8,9 @@ header h1{
 	font-size: 6em;
 	margin: 0 auto;
 }
+header a{
+	color: #000;
+}
 
 footer{
 	background: #432;
