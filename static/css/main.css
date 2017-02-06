@@ -9,6 +9,10 @@ header h1{
 	margin: 0 auto;
 }
 
+footer{
+	background: #432;
+	color: #fff;
+}
 .page-wrapper{
 	text-align: center;
 	margin: 0 auto;
