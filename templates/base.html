@@ -7,12 +7,19 @@
 	</head>
 	<body>
 		<header>
-			<a href="/"><h1>Salladr</h1></a>
+		<h1>SALLADR</h1>
+		<ul>
+			<nav>
+				<li>
+					<a href="/">Home</a>
+					<a href="/about/">About</a>
+				</li>
+			</nav>
+		</ul>
 		</header>
+		
 		<div class="page-wrapper">
-		<nav>
-			<a href="/about/">About</a>
-		</nav>
+		
 		{% block content %} {% endblock %}
 		<footer>
 			<p>This is a footer</p>

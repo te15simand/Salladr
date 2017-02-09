@@ -4,9 +4,8 @@ body{
 	color: #111;
 }
 
-header h1{
-	font-size: 6em;
-	margin: 0 auto;
+header{
+	background: #e2f322;	
 }
 header a{
 	color: #000;
@@ -15,6 +14,18 @@ header a{
 footer{
 	background: #432;
 	color: #fff;
+}
+
+
+
+nav a{
+	text-decoration: none;
+
+	
+}
+
+ul{
+	list-style-type: none;
 }
 .page-wrapper{
 	text-align: center;
