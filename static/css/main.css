@@ -1,7 +1,16 @@
 body{
 	font-family: "Arial";
 	background: #eee;
+	margin: 0 auto;
 	color: #111;
+}
+
+h1{
+	margin: 0 auto;	
+}
+
+ul{
+	margin: 0 auto;
 }
 
 header{
@@ -10,6 +19,7 @@ header{
 header a{
 	color: #000;
 }
+
 
 footer{
 	background: #432;
@@ -30,6 +40,6 @@ ul{
 .page-wrapper{
 	text-align: center;
 	margin: 0 auto;
-	background: #e2f322;
+	background: #fff;
 	max-width: 900px;
 }
