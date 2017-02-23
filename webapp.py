@@ -1,4 +1,4 @@
-from flask import Flask, render_template
+from flask import Flask, render_template, request
 
 app = Flask("salladr")
 
@@ -14,8 +14,24 @@ def home():
 
 
 @app.route("/profile/")
-def about():
+def profile():
 	return render_template("profile.html")
+
+@app.route("/help/")
+def help():
+	return render_template("help.html")
+
+@app.route("/contact", methods=["GET", "POST"])
+def contact():
+	if request.method == "POST":
+		page = "You are {} with email {} and your message was {}".format(
+			request.form["name"],
+			request.form["email"],
+			request.form["message"]
+		)
+		return page
+	else:
+		return render_template("contact.html")
 
 
 if __name__ == "__main__":
