@@ -1,5 +1,38 @@
 {% extends "base.html" %}
 
 {% block content %}
-<form action="{{ url_for('contact') }}" method="post"></form>
+
+<form action="/math" method="post">
+	<div>
+		<label for="id_num_1">Num_1</label>
+		<input type="int" name="x">
+	</div>
+	<div>
+		<label for="id_num_2">Num_2</label>
+		<input type="int" name="y">
+	</div>
+	<div>
+		<button type="calculate">Calculate</button>
+	</div>
+</form>
+
+
+
+<form action="/help" method="post">
+  <div>
+  	<label for="id_name">Name</label>
+    <input type="text" name="name">
+  </div>
+  <div>
+  	<label for="id_email">Email</label>
+    <input type="email" name="email">
+  </div>
+  <div>
+  	<label for="id_message">Message</label>
+    <textarea name="message"></textarea>
+  </div>
+  <div>
+  	<button type="submit">Submit</button>
+  </div>
+</form>
 {% endblock %}

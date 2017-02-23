@@ -6,10 +6,7 @@ visits = 0
 
 @app.route("/")
 def home():
-	global visits
-	visits += 1
-	return render_template("index.html", visits = visits,
-		username = "Simon")
+	return render_template("index.html")
 
 
 
@@ -17,12 +14,12 @@ def home():
 def profile():
 	return render_template("profile.html")
 
-@app.route("/help/")
-def help():
-	return render_template("help.html")
-
-@app.route("/contact", methods=["GET", "POST"])
+@app.route("/contact/")
 def contact():
+	return render_template("contact.html")
+
+@app.route("/help", methods=["GET", "POST"])
+def help():
 	if request.method == "POST":
 		page = "You are {} with email {} and your message was {}".format(
 			request.form["name"],
@@ -31,8 +28,19 @@ def contact():
 		)
 		return page
 	else:
-		return render_template("contact.html")
+		return render_template("help.html")
 
+@app.route("/math", methods=["GET", "POST"])
+def math():
+	if request.method == "POST":
+		page = "{} + {} = {}".format(
+			request.form["x"],
+			request.form["y"],
+			int(request.form["y"]) + int(request.form["x"])
+		)
+		return page
+	else:
+		return render_template("math.html")
 
 if __name__ == "__main__":
 	app.run("0.0.0.0", debug=True)

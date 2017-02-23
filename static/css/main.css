@@ -48,6 +48,8 @@ label, input, textarea{
 }
 
 form{
+	display: inline-block;
+	text-align: center;
 	width: 100%;
 	max-width:  32rem;	
 }
