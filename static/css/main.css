@@ -18,6 +18,10 @@ header a{
 	color: #000;
 }
 
+header h1{
+	font-size: 70px;
+
+}
 
 footer{
 	background: #432;
@@ -28,13 +32,18 @@ footer{
 
 nav a{
 	text-decoration: none;
-
+	font-size: 20px;
+	margin-right: 10px;
 	
 }
 
 ul{
 	list-style-type: none;
 	margin: 0 auto;
+}
+
+ul li{
+	display: inline;
 }
 
 label{
@@ -50,8 +59,30 @@ label, input, textarea{
 form{
 	display: inline-block;
 	text-align: center;
-	width: 100%;
+	width: 80%;
 	max-width:  32rem;	
+}
+
+nav button{
+	display: none;
+}
+
+
+@media screen and(min-width: 860px){
+    .menu {
+        position:relative;
+        display:inline-block;
+    }
+}
+
+@media (max-width: 450px){
+	header h1{
+		font-size: 60px;
+		text-align: center;
+	}
+
+
+
 }
 
 .page-wrapper{

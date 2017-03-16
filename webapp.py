@@ -8,7 +8,9 @@ visits = 0
 def home():
 	return render_template("index.html")
 
-
+@app.route("/rem")
+def rem():
+	return render_template("rem.html")
 
 @app.route("/profile/")
 def profile():
@@ -30,17 +32,7 @@ def help():
 	else:
 		return render_template("help.html")
 
-@app.route("/math", methods=["GET", "POST"])
-def math():
-	if request.method == "POST":
-		page = "{} + {} = {}".format(
-			request.form["x"],
-			request.form["y"],
-			int(request.form["y"]) + int(request.form["x"])
-		)
-		return page
-	else:
-		return render_template("math.html")
+
 
 if __name__ == "__main__":
 	app.run("0.0.0.0", debug=True)
