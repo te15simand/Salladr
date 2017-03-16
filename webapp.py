@@ -1,8 +1,10 @@
 from flask import Flask, render_template, request
+from forms import MyForm
 
 app = Flask("salladr")
+app.config["WTF_CSRF_ENABLED"] = False
 
-visits = 0
+
 
 @app.route("/")
 def home():
@@ -16,21 +18,13 @@ def rem():
 def profile():
 	return render_template("profile.html")
 
-@app.route("/contact/")
+@app.route("/contact/", methods=["GET", "POST"])
 def contact():
-	return render_template("contact.html")
-
-@app.route("/help", methods=["GET", "POST"])
-def help():
-	if request.method == "POST":
-		page = "You are {} with email {} and your message was {}".format(
-			request.form["name"],
-			request.form["email"],
-			request.form["message"]
-		)
-		return page
+	form = MyForm()
+	if form.validate_on_submit():
+		return "Hey there, {}".format(form.name.data)
 	else:
-		return render_template("help.html")
+		return render_template("help.html", form=form)
 
 
 
