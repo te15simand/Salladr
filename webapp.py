@@ -24,7 +24,7 @@ def contact():
 	if form.validate_on_submit():
 		return "Hey there, {}".format(form.name.data)
 	else:
-		return render_template("help.html", form=form)
+		return render_template("contact.html", form=form)
 
 
 
