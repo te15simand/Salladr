@@ -1,10 +1,19 @@
 from flask import Flask, render_template, request
 from forms import MyForm
+from database import db
+
 
 app = Flask("salladr")
 app.config["WTF_CSRF_ENABLED"] = False
 
+@app.before_request
+def before_requrst():
+	db.connect()
 
+@app.after_request
+def after_request(response):
+	db.close()
+	return response
 
 @app.route("/")
 def home():
