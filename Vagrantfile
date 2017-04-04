@@ -8,19 +8,12 @@ Vagrant.configure(2) do |config|
 	vb.memory = "512"
   end
 
+
   config.vm.provision "shell", inline: <<-SHELL
-	sudo apt-get update
-	sudo apt-get install -y python3-pip
-	sudo pip3 install honcho
+  sudo apt-get update
+  sudo apt-get install -y python3-pip
+  sudo pip3 install honcho
   sudo pip3 install -r /vagrant/requirements.txt
+  (cd /vagrant && sudo python3 /vagrant/install.py)
   SHELL
 end
-
-
- config.vm.provision "shell", inline: <<-SHELL
-    sudo apt-get update
-    sudo apt-get install -y python3-pip
-    sudo pip3 install honcho
-    sudo pip3 install -r /vagrant/requirements.txt
-    (cd /vagrant && sudo python3 /vagrant/install.py)
-  SHELL
