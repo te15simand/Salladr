@@ -1,8 +1,8 @@
-from peewee import SqliteDatabase, Model, CharField
+from peewee import PostgresqlDatabase, Model, CharField
 
-DATABASE = "salladr.db"
+DATABASE = "Salladr"
 
-db = SqliteDatabase(DATABASE, threadlocals=True)
+db = PostgresqlDatabase(DATABASE, threadlocals=True)
 
 class BaseModel(Model):
 	class Meta:
@@ -11,3 +11,4 @@ class BaseModel(Model):
 class Contact(BaseModel):
 	email = CharField()
 	message = CharField()
+
