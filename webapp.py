@@ -35,8 +35,14 @@ def track_cookie():
 def track_session():
 	visits = int(session.get("number_of_visits", 0))
 	visits += 1
-	session["number_of_visits"] = visits
-	text = "Welcome! This is visit number: {}".format(visits)
+	if visits == 0:
+		session["number_of_visits"] = visits
+		text = "Welcome! This is your first visit!"
+		
+	elif visits >= 1:
+		session["number_of_visits"] = visits
+		text = "Welcome back!"
+		
 	return text
 
 @app.route("/")
