@@ -1,5 +1,5 @@
-from flask import Flask, render_template, request, make_response, session
-from forms import MyForm
+from flask import Flask, render_template, request, make_response, session, redirect, url_for
+from forms import MyForm, Password
 from database import db
 import os
 
@@ -31,27 +31,38 @@ def track_cookie():
 	resp.set_cookie("number_of_visits", str(visits))
 	return resp
 
-@app.route("/track/session")
-def track_session():
-	visits = int(session.get("number_of_visits", 0))
-	visits += 1
-	if visits == 0:
-		session["number_of_visits"] = visits
-		text = "Welcome! This is your first visit!"
-		
-	elif visits >= 1:
-		session["number_of_visits"] = visits
-		text = "Welcome back!"
-		
-	return text
+@app.route("/login", methods=["GET", "POST"])
+def log_in():
+	form = Password()
+	if form.validate_on_submit():
+
+		if form.data["password"] == "sallad":
+			print("XD")
+			session["logged_in"] = True
+			return redirect(url_for("rem"))
+		else:
+			print(form.data["password"])
+			return render_template("login.html", form=form)
+	else:
+		return render_template("login.html", form=form)
+
+	
+
 
 @app.route("/")
 def home():
 	return render_template("index.html")
 
+
+
+
 @app.route("/rem")
 def rem():
-	return render_template("rem.html")
+	logged_in = int(session.get("logged_in", 0))
+	if logged_in:
+		return render_template("rem.html")
+	else:
+		return redirect(url_for("log_in"))
 
 @app.route("/profile/")
 def profile():
