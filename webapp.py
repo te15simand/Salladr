@@ -1,20 +1,20 @@
 from flask import Flask, render_template, request, make_response, session, redirect, url_for
+from flask_security import Security, PeeweeUserDatastore, login_required
 from forms import MyForm, Password
-from database import db
+from database import db, User, Role, UserRoles
 import os
 
 app = Flask("salladr")
-app.config["WTF_CSRF_ENABLED"] = False
 app.config["SECRET_KEY"] = os.environ.get("SECRET_KEY", "insecure dev key")
+app.config["WTF_CSRF_ENABLED"] = False
+app.config["SECURITY_USER_IDENTITY_ATTRIBUTES"] = "email"
+app.config["SECURITY_PASSWORD_HASH"] = "pbkdf2_sha512"
+app.config["SECURITY_PASSWORD_SALT"] = app.config["SECRET_KEY"]
 
-@app.before_request
-def before_requrst():
-	db.connect()
+user_datastore = PeeweeUserDatastore(db, User, Role, UserRoles)
+security = Security(app, user_datastore)
 
-@app.after_request
-def after_request(response):
-	db.close()
-	return response
+
 
 
 @app.route("/track/cookie") 
@@ -31,22 +31,16 @@ def track_cookie():
 	resp.set_cookie("number_of_visits", str(visits))
 	return resp
 
+
 @app.route("/login", methods=["GET", "POST"])
 def log_in():
-	form = Password()
-	if form.validate_on_submit():
-
-		if form.data["password"] == "sallad":
-			print("XD")
-			session["logged_in"] = True
-			return redirect(url_for("rem"))
-		else:
-			print(form.data["password"])
-			return render_template("login.html", form=form)
-	else:
-		return render_template("login.html", form=form)
+	return render_template("login.html", form=form)
 
 	
+@app.route("/register", methods=["GET", "POST"])
+def register():
+	return render_template("register.html")
+
 
 
 @app.route("/")
@@ -57,18 +51,18 @@ def home():
 
 
 @app.route("/rem")
+@login_required
 def rem():
-	logged_in = int(session.get("logged_in", 0))
-	if logged_in:
-		return render_template("rem.html")
-	else:
-		return redirect(url_for("log_in"))
+	return render_template("rem.html")
+
 
 @app.route("/profile/")
+@login_required
 def profile():
 	return render_template("profile.html")
 
 @app.route("/contact/", methods=["GET", "POST"])
+@login_required
 def contact():
 	form = MyForm()
 	if form.validate_on_submit():
