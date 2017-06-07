@@ -1,6 +1,10 @@
 {% extends "base.html" %}
 
 {% block content %}
+
+<h3>Have any questions?</h3>
+<p>Feel free to ask anything!</p>
+
 <form action="{{ url_for('contact') }}" method="post">
 
 {% if form.errors %}

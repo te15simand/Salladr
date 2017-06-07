@@ -1,12 +1,11 @@
 from flask import Flask, render_template, request, make_response, session, redirect, url_for
 from flask_security import Security, PeeweeUserDatastore, login_required
-from forms import MyForm, Password
-from database import db, User, Role, UserRoles
+from forms import MyForm, RegisterForm
+from database import db, User, Role, UserRoles, Contact
 import os
 
 app = Flask("salladr")
 app.config["SECRET_KEY"] = os.environ.get("SECRET_KEY", "insecure dev key")
-app.config["WTF_CSRF_ENABLED"] = False
 app.config["SECURITY_USER_IDENTITY_ATTRIBUTES"] = "email"
 app.config["SECURITY_PASSWORD_HASH"] = "pbkdf2_sha512"
 app.config["SECURITY_PASSWORD_SALT"] = app.config["SECRET_KEY"]
@@ -32,40 +31,25 @@ def track_cookie():
 	return resp
 
 
-@app.route("/login", methods=["GET", "POST"])
-def log_in():
-	return render_template("login.html", form=form)
-
-	
-@app.route("/register", methods=["GET", "POST"])
-def register():
-	return render_template("register.html")
-
 
 
 @app.route("/")
+@login_required
 def home():
 	return render_template("index.html")
-
-
-
-
-@app.route("/rem")
-@login_required
-def rem():
-	return render_template("rem.html")
-
 
 @app.route("/profile/")
 @login_required
 def profile():
-	return render_template("profile.html")
+	user = User.email
+	return render_template("profile.html", user=user)
 
 @app.route("/contact/", methods=["GET", "POST"])
 @login_required
 def contact():
 	form = MyForm()
 	if form.validate_on_submit():
+
 		return "Hey there, {}".format(form.name.data)
 	else:
 		return render_template("contact.html", form=form)
