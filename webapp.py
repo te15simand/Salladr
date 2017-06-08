@@ -1,5 +1,5 @@
 from flask import Flask, render_template, request, make_response, session, redirect, url_for
-from flask_security import Security, PeeweeUserDatastore, login_required
+from flask_security import Security, PeeweeUserDatastore, login_required, current_user
 from forms import MyForm, RegisterForm, LoginForm
 from database import db, User, Role, UserRoles, Contact
 import os
@@ -41,7 +41,6 @@ def register():
 			password=form.password.data
 			)
 		return redirect(url_for("profile"))
-	print(form.errors)
 	return render_template("register.html", form=form)
 
 @app.route("/")
@@ -52,7 +51,8 @@ def home():
 @app.route("/profile/")
 @login_required
 def profile():
-	return render_template("profile.html")
+	p = "Logged in as {}".format(current_user.email)
+	return render_template("profile.html", p = p)
 
 @app.route("/contact/", methods=["GET", "POST"])
 @login_required
