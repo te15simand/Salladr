@@ -1,0 +1,20 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="contact_box">
+	<form action="/register" method="POST">
+		{{form.csrf_token}}
+		<h3>Register</h3>
+		<div>
+			{{form.email(placeholder="Email")}}
+		</div>
+		<div>
+			{{form.password(placeholder="Password")}}
+		</div>
+		<div>
+			<button type="submit">Send</button>
+		</div>
+		<a href="/">Already have an account?</a>
+	</form>
+</div>
+{% endblock %}

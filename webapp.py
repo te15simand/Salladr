@@ -1,6 +1,6 @@
 from flask import Flask, render_template, request, make_response, session, redirect, url_for
 from flask_security import Security, PeeweeUserDatastore, login_required
-from forms import MyForm, RegisterForm
+from forms import MyForm, RegisterForm, LoginForm
 from database import db, User, Role, UserRoles, Contact
 import os
 
@@ -32,6 +32,17 @@ def track_cookie():
 
 
 
+@app.route("/register", methods=["GET", "POST"])
+def register():
+	form = RegisterForm()
+	if form.validate_on_submit():
+		user_datastore.create_user(
+			email=form.email.data,
+			password=form.password.data
+			)
+		return redirect(url_for("profile"))
+	print(form.errors)
+	return render_template("register.html", form=form)
 
 @app.route("/")
 @login_required
@@ -41,8 +52,7 @@ def home():
 @app.route("/profile/")
 @login_required
 def profile():
-	user = User.email
-	return render_template("profile.html", user=user)
+	return render_template("profile.html")
 
 @app.route("/contact/", methods=["GET", "POST"])
 @login_required

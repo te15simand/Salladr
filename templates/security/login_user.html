@@ -1,0 +1,20 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="page-wrapper">
+  <form action="" method="POST">
+    {{login_user_form.csrf_token}}
+    <h3>Login</h3>
+    <div>
+      {{login_user_form.email(placeholder="Email")}}
+    </div>
+    <div>
+      {{login_user_form.password(placeholder="Password")}}
+    </div>
+    <div>
+      <button type="submit">Send</button>
+    </div>
+    <a href="/register">Don't have an account? Register now!</a>
+  </form>
+</div>
+{% endblock %}
